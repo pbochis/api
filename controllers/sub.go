@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/mail"
+	"os"
+	"path"
 	"text/template"
 	"time"
 
@@ -21,7 +23,7 @@ var subscription *template.Template
 
 func init() {
 	var err error
-	subscription, err = template.ParseFiles("./mail/template.subscription")
+	subscription, err = template.ParseFiles(path.Join(os.Getenv("GOPATH"), "src/github.com/coduno/api/mail/template.subscription"))
 	if err != nil {
 		panic(err)
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -70,6 +71,13 @@ func main() {
 	r.HandleFunc("/tasks", setup(controllers.Tasks))
 
 	r.HandleFunc("/whoami", setup(controllers.WhoAmI))
+	r.HandleFunc("/testguess", func(w http.ResponseWriter, r *http.Request) {
+		toWrite := ""
+		for _, val := range os.Environ() {
+			toWrite = toWrite + "\n" + val
+		}
+		w.Write([]byte("THE ENVS ARE :" + toWrite))
+	})
 
 	http.Handle("/", r)
 	appengine.Main()

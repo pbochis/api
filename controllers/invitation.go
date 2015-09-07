@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/mail"
+	"os"
+	"path"
 	"text/template"
 	"time"
 
@@ -23,7 +25,7 @@ var invitation *template.Template
 
 func init() {
 	var err error
-	invitation, err = template.ParseFiles("./mail/template.invitation")
+	invitation, err = template.ParseFiles(path.Join(os.Getenv("GOPATH"), "src/github.com/coduno/api/mail/template.invitation"))
 	if err != nil {
 		panic(err)
 	}
